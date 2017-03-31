@@ -7,11 +7,11 @@ class Target(object):
     def __init__ (self, position, velocity):
         self.position = position
         self.velocity = velocity
-        self.mass = 1
         self.force = Vector2(0, 0)
         self.heading = Vector2(0, 0)
         self.acceleration = Vector2(0, 0)
-        self.maxvelocity = Vector2(10, 10)
+        self.maxvelocity = 50
+        self.currentvelocity = self.velocity
 
 
 

@@ -38,8 +38,7 @@ class Vector2(object):
         return self.sub(other)
     def __mul__(self, scalar):
         return Vector2(self.posx * scalar, self.posy * scalar)
-
-
+        
 
 if __name__ == '__main__':
     import main as Main

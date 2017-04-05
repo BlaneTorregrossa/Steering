@@ -14,25 +14,27 @@ class Agent(object):
         self.acceleration = Vector2(0, 0)
         self.maxvelocity = 50
         self.currentvelocity = self.velocity
-        
 
     def seek(self, seektarget):
+        '''seek command'''
         self.velocity = Vector2.normalise(seektarget.position - self.position) * self.maxvelocity
         self.force = self.velocity - self.currentvelocity
         self.update()
 
     def flee(self, fleetarget):
+        '''flee command'''
         self.velocity = Vector2.normalise(self.position - fleetarget.position) * self.maxvelocity
         self.force = self.velocity - self.currentvelocity
-        
+        self.update()
 
     def update(self, deltatime):
         '''update agent'''
         self.position += self.velocity * deltatime
         self.velocity += self.force * deltatime
         self.heading = Vector2.normalise(self.velocity)
-        
+
     def draw(self, screen):
+        '''draws moving agents and targets'''
         pygame.draw.circle(screen, BLACK , [int(self.position.posx), int(self.position.posy)], 25)
         
 

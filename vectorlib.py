@@ -16,21 +16,11 @@ class Vector2(object):
         dot = self.posx * rhs.posx + self.posy * rhs.posy
         return dot
 
-    def scalrmult (self, scalrval):
-        prod = (self.posx * scalrval) + (self.posy * scalrval)
-        return prod
-
     def add (self, rhs):
         return Vector2(self.posx + rhs.posx, self.posy + rhs.posy)
 
     def sub (self, rhs):
         return Vector2(self.posx - rhs.posx, self.posy - rhs.posy)
-    
-    def mult (self, rhs):
-        return Vector2(self.posx * rhs.posx, self.posy * rhs.posy)
-
-    def divi (self, rhs):
-        return Vector2(self.posx / rhs.posx, self.posy / rhs.posy) 
     
     def __add__(self, other):
         return self.add(other)

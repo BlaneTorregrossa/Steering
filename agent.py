@@ -1,41 +1,43 @@
 import vectorlib
 from vectorlib import Vector2
-from target import Target
 import pygame
 from constants import *
 import gametemplate
+from gametemplate import GameTemplate
 
 class Agent(object):
     def __init__ (self, position, velocity):
         self.position = position
         self.velocity = velocity
-        self.force = Vector2(0, 0)
         self.heading = Vector2(0, 0)
+        self.force = Vector2(0, 0)
         self.acceleration = Vector2(0, 0)
         self.maxvelocity = 50
-        self.currentvelocity = self.velocity
 
     def seek(self, seektarget):
         '''seek command'''
-        self.velocity = Vector2.normalise(seektarget.position - self.position) * self.maxvelocity
-        self.force = self.velocity - self.currentvelocity
-        self.update()
+        displacement = Vector2.normalise(seektarget.position - self.position)
+        distvector = displacement * self.maxvelocity
+        seekforce = distvector - self.velocity
+        self.force = seekforce
+        return seekforce
 
     def flee(self, fleetarget):
         '''flee command'''
-        self.velocity = Vector2.normalise(self.position - fleetarget.position) * self.maxvelocity
-        self.force = self.velocity - self.currentvelocity
-        self.update()
+        displacement = Vector2.normalise(self.position - fleetarget.position)
+        distvector = displacement * self.maxvelocity
+        fleeforce = distvector - self.velocity
+        self.force = fleeforce
+        return fleeforce
 
     def update(self, deltatime):
         '''update agent'''
-        self.position += self.velocity * deltatime
-        self.velocity += self.force * deltatime
-        self.heading = Vector2.normalise(self.velocity)
+        self.velocity = self.velocity + self.force * deltatime
+        self.position = self.position + self.velocity * deltatime 
 
     def draw(self, screen):
-        '''draws moving agents and targets'''
-        pygame.draw.circle(screen, BLACK , [int(self.position.posx), int(self.position.posy)], 25)
+        '''draws moving agents'''
+        pygame.draw.circle(screen, RED , [int(self.position.posx), int(self.position.posy)], 10)
         
 
 if __name__ == '__main__':

@@ -1,4 +1,2 @@
-1. Change main to be less messy
-2. Get Seek and flee to work as intended 
-3. Need a better way to select behviors such as seek, flee, and wander
- or have behaviors assigned to to specific objects(one chases, one flees, one wanders). 
+1. Call seek and flee function in a different way out of main.
+2. Leave AddtoBatch calls there.

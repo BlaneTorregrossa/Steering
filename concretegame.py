@@ -67,3 +67,8 @@ class ConcreteGame(GameTemplate):
             while self.update():
                 self.draw()
         super(ConcreteGame, self)._shutdown()
+
+
+if __name__ == '__main__':
+    import main as Main
+    Main.main()

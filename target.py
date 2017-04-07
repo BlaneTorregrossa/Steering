@@ -1,9 +1,13 @@
-import vectorlib
-from vectorlib import Vector2
+import random
+
 import pygame
-from constants import *
+
 import gametemplate
+import vectorlib
+from constants import *
 from gametemplate import GameTemplate
+from vectorlib import Vector2
+
 
 class Target(object):
     def __init__ (self, position, velocity):
@@ -11,31 +15,32 @@ class Target(object):
         self.velocity = velocity
         self.heading = Vector2(0, 0)
         self.force = Vector2(0, 0)
-        self.acceleration = Vector2(0, 0)
-        self.maxvelocity = 50
+        self.acceleration = Vector2(0, 0)       #not used
+        self.maxvelocity = 10
+        self.mass = 1                           #not used
 
     def seek(self, seektarget):
         '''seek command'''
         displacement = Vector2.normalise(seektarget.position - self.position)
         distvector = displacement * self.maxvelocity
-        seekforce = distvector - self.velocity
-        return seekforce
+        self.force = distvector - self.velocity
 
     def flee(self, fleetarget):
         '''flee command'''
         displacement = Vector2.normalise(self.position - fleetarget.position)
         distvector = displacement * self.maxvelocity
         fleeforce = distvector - self.velocity
-        return fleeforce
+        self.force = fleeforce
+        #return fleeforce
 
     def update(self, deltatime):
-        '''update agent'''
-        self.velocity = self.velocity + self.force * deltatime
-        self.position = self.position + self.velocity * deltatime 
+        self.velocity += self.force * deltatime
+        self.position += self.velocity * deltatime
+        self.heading = Vector2.normalise(self.velocity)
+
         
     def draw(self, screen):
-        pygame.draw.circle(screen, BLUE , [int(self.position.posx), int(self.position.posy)], 5)
-        
+        pygame.draw.circle(screen, BLUE , [int(self.position.posx), int(self.position.posy)], 10)
        
 
 if __name__ == '__main__':

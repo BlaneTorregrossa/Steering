@@ -46,9 +46,9 @@ class Agent(object):
         self.velocity += self.force * deltatime
         self.position += self.velocity * deltatime
         self.flee(CenterTarget(Vector2(400, 300)))
-        print "agent pos", str(self.position.posx), str(self.position.posy)
-        print "agent vel", str(self.velocity.posx), str(self.velocity.posy)
-        print "agent force", str(self.force.posx), str(self.force.posy)
+        print "agent pos:", str(self.position.posx), str(self.position.posy)
+        print "agent vel:", str(self.velocity.posx), str(self.velocity.posy)
+        print "agent force:", str(self.force.posx), str(self.force.posy)
 
 
 

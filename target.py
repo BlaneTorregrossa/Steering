@@ -46,9 +46,9 @@ class Target(object):
                 self.force = Vector2(0, 0)
         else:
             self.seek(CenterTarget(Vector2(400, 300)))
-        print "target pos", str(self.position.posx), str(self.position.posy)
-        print "target vel", str(self.velocity.posx), str(self.velocity.posy)
-        print "target force", str(self.force.posx), str(self.force.posy)
+        print "target pos:", str(self.position.posx), str(self.position.posy)
+        print "target vel:", str(self.velocity.posx), str(self.velocity.posy)
+        print "target force:", str(self.force.posx), str(self.force.posy)
 
 
         

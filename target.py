@@ -4,6 +4,7 @@ import pygame
 
 import gametemplate
 import vectorlib
+from centertarget import CenterTarget
 from constants import *
 from gametemplate import GameTemplate
 from vectorlib import Vector2
@@ -23,7 +24,10 @@ class Target(object):
         '''seek command'''
         displacement = Vector2.normalise(seektarget.position - self.position)
         distvector = displacement * self.maxvelocity
-        self.force = distvector - self.velocity
+        seekforce = distvector - self.velocity
+        self.force = seekforce
+        return seekforce
+
 
     def flee(self, fleetarget):
         '''flee command'''
@@ -31,12 +35,21 @@ class Target(object):
         distvector = displacement * self.maxvelocity
         fleeforce = distvector - self.velocity
         self.force = fleeforce
-        #return fleeforce
+        return fleeforce
 
     def update(self, deltatime):
         self.velocity += self.force * deltatime
         self.position += self.velocity * deltatime
-        self.heading = Vector2.normalise(self.velocity)
+        if self.position.posx == range(399 - 401):
+            if self.position.posy == range(299 - 301):
+                self.velocity = Vector2(0, 0)
+                self.force = Vector2(0, 0)
+        else:
+            self.seek(CenterTarget(Vector2(400, 300)))
+        print "target pos", str(self.position.posx), str(self.position.posy)
+        print "target vel", str(self.velocity.posx), str(self.velocity.posy)
+        print "target force", str(self.force.posx), str(self.force.posy)
+
 
         
     def draw(self, screen):
